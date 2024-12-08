@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Ders Bulunamadı";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Header -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-blue-800 text-center">Ders Bulunamadı</h1>
+        </div>
+
+        <!-- No courses found message -->
+        <div class="w-full max-w-5xl bg-white shadow-lg rounded-lg p-6 text-center">
+            <p class="text-xl text-gray-600">Kayıtlı olduğunuz dersler bulunamadı. Lütfen tekrar deneyin veya bir hata oluştuysa destekle iletişime geçin.</p>
+        </div>
+
+        <!-- Optional: Button to go back to the main page -->
+
+    </div>
+
+</body>
+</html>

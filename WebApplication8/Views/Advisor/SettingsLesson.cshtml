@@ -1,0 +1,113 @@
+﻿@model List<WebApplication8.Models.Course>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Yönetimi</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Başlık -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-blue-800 text-center">Ders Yönetimi</h1>
+        </div>
+
+        <!-- Mesajlar -->
+        @if (ViewBag.Message != null)
+        {
+            <div class="bg-@(ViewBag.MessageType == "success" ? "green-500" : "red-500") text-white p-3 rounded-lg mb-4">
+                @ViewBag.Message
+            </div>
+        }
+
+        <!-- Ders Listesi -->
+        <div class="w-full max-w-5xl overflow-x-auto mb-6">
+            <table class="min-w-full bg-white shadow-lg rounded-lg">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th class="py-3 px-6 text-left">Ders Kodu</th>
+                        <th class="py-3 px-6 text-left">Ders Adı</th>
+                        <th class="py-3 px-6 text-left">Ders Kredi</th>
+                        <th class="py-3 px-6 text-left">Ders Türü</th>
+                        <th class="py-3 px-6 text-left">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var course in Model)
+                        {
+                            <tr>
+                                <td class="py-3 px-6">@course.CourseCode</td>
+                                <td class="py-3 px-6">@course.CourseName</td>
+                                <td class="py-3 px-6">@course.Credit</td>
+                                <td class="py-3 px-6">@course.Department</td>
+                                <td class="py-3 px-6">
+                                    <form action="@Url.Action("DeleteCourse", "Advisor")" method="post" class="inline">
+                                        <input type="hidden" name="courseId" value="@course.CourseID" />
+                                        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">
+                                            Ders Sil
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="py-3 px-6 text-center">Ders bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Ders Ekleme -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
+            <h2 class="text-2xl font-semibold text-blue-800 mb-4">Yeni Ders Ekle</h2>
+            <form action="@Url.Action("AddCourse", "Advisor")" method="post">
+                <div class="space-y-4">
+                    <div class="flex flex-col">
+                        <label for="CourseCode" class="text-lg font-medium">Ders Kodu</label>
+                        <input type="text" name="CourseCode" id="CourseCode" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="CourseName" class="text-lg font-medium">Ders Adı</label>
+                        <input type="text" name="CourseName" id="CourseName" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="Credit" class="text-lg font-medium">Ders Kredi</label>
+                        <input type="number" name="Credit" id="Credit" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="CourseType" class="text-lg font-medium">Ders Türü</label>
+                        <select name="IsMandatory" id="CourseType" class="border border-gray-300 p-2 rounded-md" required>
+                            <option value="True">Zorunlu</option>
+                            <option value="False">Seçmeli</option>
+                        </select>
+                    </div>
+
+                    <!-- Gizli alan: Departman -->
+                    <input type="hidden" name="Department" value="Yazılım Mühendisliği" />
+
+                    <button type="submit" class="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out mt-4">
+                        Ders Ekle
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

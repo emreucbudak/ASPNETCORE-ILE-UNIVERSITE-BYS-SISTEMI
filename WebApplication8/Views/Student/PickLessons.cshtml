@@ -1,0 +1,52 @@
+﻿@model List<WebApplication8.Models.Course>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Seçimi</title>
+    <!-- Tailwind CSS CDN Link -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4">
+        <!-- Hata Mesajlarını Göster -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="bg-red-500 text-white p-4 mb-4 rounded">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <form method="post" action="/Student/SubmitCourseSelections">
+            <!-- Seçmeli Ders Grupları Bölümü -->
+            <div>
+                @for (int i = 0; i < Model.Where(c => !c.IsMandatory).Count() / 3; i++)
+                {
+                    <div class="border p-4 rounded-lg mb-4">
+                        <h3 class="font-bold text-blue-600 mb-2">Grup @(i + 1)</h3>
+                        <ul class="space-y-2">
+                            @foreach (var course in Model.Where(c => !c.IsMandatory).Skip(i * 3).Take(3))
+                            {
+                                <li class="flex items-center space-x-2">
+                                    <!-- Aynı name kullanarak birden fazla seçim yapmaya imkan veriyoruz -->
+                                    <input type="checkbox" name="selectedCourseIds" value="@course.CourseID" class="form-checkbox h-5 w-5 text-blue-600" />
+                                    <span>@course.CourseName</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+
+            <!-- Form Submit Button -->
+            <div class="mt-4">
+                <button type="submit" class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-600">Ders Seç</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

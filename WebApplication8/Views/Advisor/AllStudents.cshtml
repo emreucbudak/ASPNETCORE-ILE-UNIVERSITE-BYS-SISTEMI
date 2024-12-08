@@ -1,0 +1,113 @@
+﻿@model List<WebApplication8.Models.Student>
+@{
+    var message = ViewBag.Message as string;
+    var messageType = ViewBag.MessageType as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Yönetimi</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Başlık -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-blue-800 text-center">Öğrenci Yönetimi</h1>
+        </div>
+
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert alert-@messageType">
+                @message
+            </div>
+        }
+
+        <!-- Öğrenci Listesi -->
+        <div class="w-full max-w-5xl overflow-x-auto mb-6">
+            <table class="min-w-full bg-white shadow-lg rounded-lg">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th class="py-3 px-6 text-left">Öğrenci ID</th>
+                        <th class="py-3 px-6 text-left">Öğrenci Adı</th>
+                        <th class="py-3 px-6 text-left">Öğrenci Soyadı</th>
+                        <th class="py-3 px-6 text-left">E-posta</th>
+                        <th class="py-3 px-6 text-left">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var student in Model)
+                        {
+                            <tr>
+                                <td class="py-3 px-6">@student.StudentID</td>
+                                <td class="py-3 px-6">@student.FirstName</td>
+                                <td class="py-3 px-6">@student.LastName</td>
+                                <td class="py-3 px-6">@student.Email</td>
+                                <td class="py-3 px-6">
+                                    <form action="@Url.Action("DeleteStudent", "Advisor")" method="post" class="inline">
+                                        <input type="hidden" name="studentId" value="@student.StudentID" />
+                                        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">
+                                            Öğrenci Sil
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="py-3 px-6 text-center">Öğrenci bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Öğrenci Ekleme -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
+            <h2 class="text-2xl font-semibold text-blue-800 mb-4">Yeni Öğrenci Ekle</h2>
+            <form action="@Url.Action("AddStudent", "Advisor")" method="post">
+                <div class="space-y-4">
+                    <!-- StudentID alanı kaldırıldı, çünkü veritabanında otomatik olarak atanacak -->
+                    <div class="flex flex-col">
+                        <label for="FirstName" class="text-lg font-medium">Öğrenci Adı</label>
+                        <input type="text" name="FirstName" id="FirstName" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="LastName" class="text-lg font-medium">Öğrenci Soyadı</label>
+                        <input type="text" name="LastName" id="LastName" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="Email" class="text-lg font-medium">E-posta</label>
+                        <input type="email" name="Email" id="Email" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <!-- AdvisorID alanı eklendi -->
+                    <div class="flex flex-col">
+                        <label for="AdvisorID" class="text-lg font-medium">Danışman ID</label>
+                        <input type="text" name="AdvisorID" id="AdvisorID" class="border border-gray-300 p-2 rounded-md"  />
+                    </div>
+
+                    <button type="submit" class="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out mt-4">
+                        Öğrenci Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

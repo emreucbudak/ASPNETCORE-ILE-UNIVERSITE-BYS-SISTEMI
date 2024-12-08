@@ -1,0 +1,112 @@
+﻿@model List<WebApplication8.Models.Advisors>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitmen Yönetimi</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Başlık -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-indigo-800 text-center">Eğitmen Yönetimi</h1>
+        </div>
+
+        <!-- Mesajlar -->
+        @if (ViewBag.Message != null)
+        {
+            <div class="bg-@(ViewBag.MessageType == "success" ? "green-500" : "red-500") text-white p-3 rounded-lg mb-4">
+                @ViewBag.Message
+            </div>
+        }
+
+        <!-- Eğitmen Listesi -->
+        <div class="w-full max-w-5xl overflow-x-auto mb-6">
+            <table class="min-w-full bg-white shadow-lg rounded-lg">
+                <thead class="bg-indigo-600 text-white">
+                    <tr>
+                        <th class="py-3 px-6 text-left">Eğitmen ID</th>
+                        <th class="py-3 px-6 text-left">Adı</th>
+                        <th class="py-3 px-6 text-left">Metin</th>
+                        <th class="py-3 px-6 text-left">Bölüm</th>
+                        <th class="py-3 px-6 text-left">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var instructor in Model)
+                        {
+                            <tr>
+                                <td class="py-3 px-6">@instructor.AdvisorID</td>
+                                <td class="py-3 px-6">@instructor.FullName</td>
+                                <td class="py-3 px-6">@instructor.Title</td>
+                                <td class="py-3 px-6">@instructor.Department</td>
+                                <td class="py-3 px-6">
+                                    <form action="@Url.Action("DeleteInstructor", "Advisor")" method="post" class="inline">
+                                        <input type="hidden" name="instructorId" value="@instructor.AdvisorID" />
+                                        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">
+                                            Eğitmen Sil
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="py-3 px-6 text-center">Eğitmen bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Eğitmen Ekleme -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
+            <h2 class="text-2xl font-semibold text-indigo-800 mb-4">Yeni Eğitmen Ekle</h2>
+            <form action="@Url.Action("AddInstructor", "Advisor")" method="post">
+                <div class="space-y-4">
+                    <!-- Eğitmen Adı Soyadı -->
+                    <div class="flex flex-col">
+                        <label for="FullName" class="text-lg font-medium">Adı Soyadı</label>
+                        <input type="text" name="FullName" id="FullName" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <!-- Ünvan -->
+                    <div class="flex flex-col">
+                        <label for="Title" class="text-lg font-medium">Ünvan</label>
+                        <input type="text" name="Title" id="Title" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <!-- Bölüm -->
+                    <div class="flex flex-col">
+                        <label for="Department" class="text-lg font-medium">Bölüm</label>
+                        <input type="text" name="Department" id="Department" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex flex-col">
+                        <label for="Email" class="text-lg font-medium">E-posta</label>
+                        <input type="email" name="Email" id="Email" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <button type="submit" class="bg-indigo-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out mt-4">
+                        Eğitmen Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+

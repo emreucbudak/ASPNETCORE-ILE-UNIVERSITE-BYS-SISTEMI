@@ -1,0 +1,120 @@
+﻿@model List<WebApplication8.Models.Users>
+@{
+    var message = ViewBag.Message as string;
+    var messageType = ViewBag.MessageType as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Ekleme Paneli</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Başlık -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-blue-800 text-center">Kullanıcı Ekleme Paneli</h1>
+        </div>
+
+        <!-- Mesajlar -->
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="bg-@(messageType == "success" ? "green-500" : "red-500") text-white p-3 rounded-lg mb-4">
+                @message
+            </div>
+        }
+
+        <!-- Kullanıcı Listesi -->
+        <div class="w-full max-w-5xl overflow-x-auto mb-6">
+            <table class="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th class="py-3 px-6 text-left">Kullanıcı ID</th>
+                        <th class="py-3 px-6 text-left">Kullanıcı Adı</th>
+                        <th class="py-3 px-6 text-left">Şifre</th>
+                        <th class="py-3 px-6 text-left">Rol</th>
+                        <th class="py-3 px-6 text-left">E-posta</th>
+                        <th class="py-3 px-6 text-center">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800 divide-y divide-gray-200">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td class="py-3 px-6">@user.UserID</td>
+                                <td class="py-3 px-6">@user.Username</td>
+                                <td class="py-3 px-6">@user.PasswordHash</td>
+                                <td class="py-3 px-6">@user.Role</td>
+                                <td class="py-3 px-6">@user.Email</td>
+                                <td class="py-3 px-6 text-center">
+                                    <form action="@Url.Action("DeleteUser", "Advisor")" method="post" class="inline">
+                                        <input type="hidden" name="userId" value="@user.UserID" />
+                                        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">
+                                            Kullanıcı Sil
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="py-3 px-6 text-center">Kullanıcı bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Kullanıcı Ekleme -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
+            <h2 class="text-2xl font-semibold text-blue-800 mb-4">Yeni Kullanıcı Ekle</h2>
+            <form action="@Url.Action("AddUser", "Advisor")" method="post">
+                <div class="space-y-4">
+                    <div class="flex flex-col">
+                        <label for="Username" class="text-lg font-medium">Kullanıcı Adı</label>
+                        <input type="text" name="Username" id="Username" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="PasswordHash" class="text-lg font-medium">Şifre</label>
+                        <input type="password" name="PasswordHash" id="PasswordHash" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="Role" class="text-lg font-medium">Rol</label>
+                        <select name="Role" id="Role" class="border border-gray-300 p-2 rounded-md" required>
+                            <option value="Advisor">Danışman</option>
+                            <option value="Student">Öğrenci</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="Email" class="text-lg font-medium">E-posta</label>
+                        <input type="email" name="Email" id="Email" class="border border-gray-300 p-2 rounded-md" required />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="RelatedID" class="text-lg font-medium">İlgili ID (Opsiyonel)</label>
+                        <input type="number" name="RelatedID" id="RelatedID" class="border border-gray-300 p-2 rounded-md" />
+                    </div>
+
+                    <button type="submit" class="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out mt-4">
+                        Kullanıcı Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

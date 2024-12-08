@@ -1,0 +1,39 @@
+﻿@model WebApplication8.Models.Student
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Paneli</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col items-center p-4">
+        <!-- Öğrenci Bilgisi -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl mb-6">
+            <h1 class="text-2xl font-bold text-gray-800 text-center">Öğrenci Paneli</h1>
+            <div class="mt-4 text-center">
+                <p class="text-lg text-gray-700"><strong>ID:</strong> @Model.StudentID</p>
+                <p class="text-lg text-gray-700"><strong>Ad Soyad:</strong> @Model.FirstName @Model.LastName</p>
+
+            </div>
+        </div>
+
+        <!-- İşlem Butonları -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl">
+            <a href="@Url.Action("PickLessons", "Student")" class="bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-600 transition">
+                Ders Seçim
+            </a>
+
+            <a href="@Url.Action("PersonalLessons", "Student")" class="bg-blue-300 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300 ease-in-out">
+                Ders Yönetimi
+            </a>
+            <a href="@Url.Action("Logout", "Account")" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 ease-in-out">
+                Çıkış Yap
+            </a>
+        </div>
+    </div>
+</body>
+</html>

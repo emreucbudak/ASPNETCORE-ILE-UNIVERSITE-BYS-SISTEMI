@@ -1,0 +1,72 @@
+﻿@model WebApplication8.Models.Advisors
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Paneli</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-800">
+    <div class="min-h-screen flex flex-col items-center p-4">
+        <!-- Öğrenci Bilgisi -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl mb-6">
+            <h1 class="text-2xl font-semibold text-gray-800 text-center">Yetkili Paneli</h1>
+            
+            <div class="mt-4 text-center">
+                <p class="text-lg text-gray-700"><strong>Görev:</strong> @Model.Title</p>
+                <p class="text-lg text-gray-700"><strong>Ad Soyad:</strong> @Model.FullName </p>
+                <p class="text-lg text-gray-700"><strong>Bölüm:</strong> @Model.Department </p>
+            </div>
+        </div>
+
+        <!-- İşlem Butonları -->
+        <div class="grid grid-cols-1 gap-4 w-full max-w-4xl sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <!-- Eğitmen Yönetimi -->
+            <a href="@Url.Action("SetAdvisor", "Advisor")" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out">
+                Eğitmen Yönetimi
+            </a>
+
+            <!-- Öğrenci Yönetimi -->
+            <a href="@Url.Action("AllStudents", "Advisor")" class="bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
+                Öğrenci Yönetimi
+            </a>
+
+            <!-- Tüm Kullanıcılar -->
+            <a href="@Url.Action("AllUsers", "Advisor")" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition duration-300 ease-in-out">
+                Tüm Kullanıcılar
+            </a>
+
+            <!-- Tüm Dersler -->
+            <a href="@Url.Action("AllLessons", "Advisor")" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
+                Tüm Dersler
+            </a>
+
+            <!-- Kullanıcı Ekleme -->
+            <a href="@Url.Action("AddUser", "Advisor")" class="bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 transition duration-300 ease-in-out">
+                Kullanıcı Ekleme
+            </a>
+
+            <!-- Ders Yönetimi -->
+            <a href="@Url.Action("SettingsLesson", "Advisor")" class="bg-blue-300 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300 ease-in-out">
+                Ders Yönetimi
+            </a>
+
+            <!-- Ders Onaylama -->
+            <a href="@Url.Action("CoursesConfirm", "Advisor")" class="bg-yellow-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out">
+                Ders Onaylama
+            </a>
+
+            <!-- Çıkış Yap -->
+            <a href="@Url.Action("Logout", "Account")" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 ease-in-out">
+                Çıkış Yap
+            </a>
+
+        </div>
+
+
+    </div>
+</body>
+</html>

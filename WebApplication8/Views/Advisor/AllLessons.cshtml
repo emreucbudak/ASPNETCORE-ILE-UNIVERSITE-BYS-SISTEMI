@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication8.Models.Course>  
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Dersler</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Başlık -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-blue-800 text-center">Tüm Dersler</h1>
+        </div>
+
+        <!-- Ders Tablosu -->
+        <div class="w-full max-w-5xl overflow-x-auto">
+            <table class="min-w-full bg-white shadow-lg rounded-lg">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th class="py-3 px-6 text-left">Ders Kodu</th>
+                        <th class="py-3 px-6 text-left">Ders Adı</th>
+                        <th class="py-3 px-6 text-left">Ders Kredisi</th>
+                        <th class="py-3 px-6 text-left">Öğretim Görevlisi</th>
+                        <th class="py-3 px-6 text-left">Zorunlu Mu ?</th>
+                        <th class="py-3 px-6 text-left">Kaç Kredi?</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @foreach (var lesson in Model)
+                    {
+                        <tr class="border-b hover:bg-blue-100">
+                            <td class="py-3 px-6">@lesson.CourseCode</td>
+                            <td class="py-3 px-6">@lesson.CourseName</td>
+                            <td class="py-3 px-6">@lesson.Credit</td>
+                            <td class="py-3 px-6">@lesson.IsMandatory</td>
+                            <td class="py-3 px-6">@lesson.Department</td>
+                            <td class="py-3 px-6 text-center">
+                                <a href="@Url.Action("Details", "Lessons", new { id = lesson.CourseID })" class="text-blue-500 hover:text-blue-700">Detay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

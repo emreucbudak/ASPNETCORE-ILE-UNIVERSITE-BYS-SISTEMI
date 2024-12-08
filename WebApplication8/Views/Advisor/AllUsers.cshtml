@@ -1,0 +1,58 @@
+﻿@model List<WebApplication8.Models.Users>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Bilgileri</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen flex flex-col items-center p-6">
+        <!-- Başlık -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl mb-6">
+            <h1 class="text-3xl font-semibold text-blue-800 text-center">Kullanıcı Bilgileri</h1>
+        </div>
+
+        <!-- Kullanıcı Bilgileri Tablosu -->
+        <div class="w-full max-w-5xl overflow-x-auto bg-white shadow-lg rounded-lg">
+            <table class="min-w-full text-sm text-left text-gray-700">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th class="py-3 px-6">Kullanıcı Adı</th>
+                        <th class="py-3 px-6">E-posta</th>
+                        <th class="py-3 px-6">Şifre</th>
+                        <th class="py-3 px-6">Rol</th>
+                        <th class="py-3 px-6">ID</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var user in Model)
+                        {
+                            <tr class="border-b hover:bg-gray-100">
+                                <td class="py-3 px-6">@user.Username</td>
+                                <td class="py-3 px-6">@user.Email</td>
+                                <td class="py-3 px-6">@user.PasswordHash</td>
+                                <td class="py-3 px-6">@user.Role</td>
+                                <td class="py-3 px-6">@user.UserID</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="py-3 px-6 text-center text-gray-500">No users found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
