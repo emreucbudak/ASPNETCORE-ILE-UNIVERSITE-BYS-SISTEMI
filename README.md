@@ -56,14 +56,6 @@ Tarayıcınızda [http://localhost:5000](http://localhost:5000) adresini ziyaret
 
 ## Proje Yapısı
 
-```
-ASPNETCORE-ILE-UNIVERSITE-BYS-SISTEMI/
-├── EntityLayer/          # Veritabanı modelleri
-├── DataAccessLayer/      # Veritabanı bağlantı katmanı
-├── BusinessLayer/        # İş mantığı
-├── PresentationLayer/    # Uygulamanın frontend ve backend katmanı
-└── README.md             # Proje açıklamaları
-```
 
 ## Ekran Görüntüleri
 
