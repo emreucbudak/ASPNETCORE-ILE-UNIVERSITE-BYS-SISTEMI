@@ -6,7 +6,7 @@ Bu proje, ASP.NET Core kullanarak bir üniversite bilgi yönetim sistemi (BYS) g
 
 - **Ders Yönetimi**: Zorunlu ve seçmeli derslerin düzenlenmesi.
 - **Ders Seçimi**: Öğrenciler için ders seçim ekranı.
-  - Zorunlu dersler tek blokta gösterilir.
+  - Zorunlu dersler her öğrencide otomatik olarak seçilir.
   - Seçmeli dersler, gruplar halinde bloklara ayrılır ve her gruptan bir ders seçilebilir.
 - **Kontenjan Takibi**: Derslerin kontenjanları takip edilir ve seçimlere göre güncellenir.
 - **Onay Süreci**: Öğrencilerin ders seçimleri, öğretmenler tarafından onaylanır.
